@@ -22,12 +22,13 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     //https://playwright.dev/docs/api/class-testoptions#test-options-base-url
+    //https://github.com/microsoft/playwright/issues/9468
     /* Base URL to use in actions like `await page.goto('/')`. */
     //baseURL: 'http://127.0.0.1:3000',
 
@@ -37,11 +38,11 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    /*{
+    {
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        //baseURL: "https://demo.playwright.dev/todomvc",
+        baseURL: "https://demo.playwright.dev/todomvc/",
       },
     },
 
@@ -49,7 +50,7 @@ export default defineConfig({
       name: "Playwright_todo_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        //baseURL: "https://demo.playwright.dev/todomvc",
+        baseURL: "https://demo.playwright.dev/todomvc/",
       },
     },
 
@@ -57,11 +58,11 @@ export default defineConfig({
       name: "Playwright_todo_webkit",
       use: {
         ...devices["Desktop Safari"],
-        //baseURL: "https://demo.playwright.dev/todomvc",
+        baseURL: "https://demo.playwright.dev/todomvc/",
       },
-    },*/
+    },
     //Svelte MVC
-    {
+    /*{
       name: "Svelte_chromium",
       use: {
         ...devices["Desktop Chrome"],
@@ -83,6 +84,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/svelte/dist/",
       },
     },
+    */
     //React MVC
     /*{
       name: "React_chromium",
