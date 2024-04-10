@@ -3,6 +3,7 @@
 //https://github.com/microsoft/playwright/issues/18345
 //https://github.com/microsoft/playwright-vscode/pull/407
 import { defineConfig, devices } from "@playwright/test";
+import path from "path";
 
 /**
  * Read environment variables from file.
@@ -20,11 +21,19 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  //workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  //reporter: "html",
+  reporter: [
+    [
+      "html",
+      { outputFolder: "myReports" },
+      //{ outputFolder: ${ testproject.name } + "_test-report" },
+    ],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     //https://playwright.dev/docs/api/class-testoptions#test-options-base-url
@@ -34,18 +43,21 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    /* Capture screenshot after each test failure. */
+    //screenshot: 'only-on-failure',
+    /* Record video only when retrying a test for the first time. */
+    //video: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
   projects: [
-    {
+    /*{
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://demo.playwright.dev/todomvc/",
       },
     },
-
     {
       name: "Playwright_todo_firefox",
       use: {
@@ -53,7 +65,6 @@ export default defineConfig({
         baseURL: "https://demo.playwright.dev/todomvc/",
       },
     },
-
     {
       name: "Playwright_todo_webkit",
       use: {
@@ -61,15 +72,15 @@ export default defineConfig({
         baseURL: "https://demo.playwright.dev/todomvc/",
       },
     },
+    */
     //Svelte MVC
-    /*{
+    {
       name: "Svelte_chromium",
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://todomvc.com/examples/svelte/dist/",
       },
     },
-
     {
       name: "Svelte_firefox",
       use: {
@@ -84,9 +95,9 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/svelte/dist/",
       },
     },
-    */
+
     //React MVC
-    /*{
+    {
       name: "React_chromium",
       use: {
         ...devices["Desktop Chrome"],
@@ -109,6 +120,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/react/dist/",
       },
     },
+
     //Vue MVC
     {
       name: "Vue_chromium",
@@ -132,6 +144,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/vue/dist/#/",
       },
     },
+
     //Backbone MVC
     {
       name: "Backbone_chromium",
@@ -177,6 +190,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/preact/dist/",
       },
     },
+
     //Angular MVC
     {
       name: "Angular_chromium",
@@ -185,7 +199,6 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/angular/dist/browser/#/all",
       },
     },
-
     {
       name: "Angular_firefox",
       use: {
@@ -200,6 +213,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/angular/dist/browser/#/all",
       },
     },
+
     //Web-Component MVC
     {
       name: "WebC_chromium",
@@ -223,6 +237,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/web-components/dist/",
       },
     },
+
     //JS-ES6 MVC
     {
       name: "JS-ES6_chromium",
@@ -246,6 +261,7 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/javascript-es6/dist/",
       },
     },
+
     //jquery MVC
     {
       name: "jquery_chromium",
@@ -254,7 +270,6 @@ export default defineConfig({
         baseURL: "https://todomvc.com/examples/jquery/dist/#/all",
       },
     },
-
     {
       name: "jquery_firefox",
       use: {
@@ -268,7 +283,8 @@ export default defineConfig({
         ...devices["Desktop Safari"],
         baseURL: "https://todomvc.com/examples/jquery/dist/#/all",
       },
-    },*/
+    },
+
     // Test against mobile viewports. */
     /* {
       name: 'Mobile Chrome',
