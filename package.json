@@ -10,5 +10,9 @@
   "devDependencies": {
     "@playwright/test": "^1.42.1",
     "@types/node": "^20.11.30"
-  }
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  },
+  "type": "module"
 }
