@@ -1,4 +1,4 @@
-name: CI_Main_branch
+name: _Main_
 on: 
   pull_request:
     branches:  
