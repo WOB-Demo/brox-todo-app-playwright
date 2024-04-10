@@ -1,31 +1,36 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
-
-on:
-  push:
-    branches: [ "main" ]
+name: CI_Main_branch
+on: 
   pull_request:
-    branches: [ "main" ]
-
+    branches:  
+    - main
+    - master
+    
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  build_environment:
+    timeout-minutes: 60
+    name: ${{ matrix.os }} - Node.js ${{ matrix.node-version }}
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [ 16, 18, 20]       
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - run: pwd
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: pwReport_${{ matrix.os }}_node${{ matrix.node-version }}
+        path: playwright-report/
+        retention-days: 30
