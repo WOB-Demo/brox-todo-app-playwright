@@ -27,16 +27,18 @@ export default defineConfig({
   workers: process.env.CI ? 4 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   //reporter: "html",
-  reporter: [
+  reporter: "./customReport.ts",
+  /*reporter: [
     [
       "html",
       {
-        outputFolder: process.env.REPNAME
-          ? process.env.REPNAME + "myReports"
+        outputFolder: process.env.PLAYWRIGHT_HTML_REPORT
+          ? process.env.PLAYWRIGHT_HTML_REPORT + "myReports"
           : "myReports",
       },
     ],
   ],
+  */
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     //https://playwright.dev/docs/api/class-testoptions#test-options-base-url
