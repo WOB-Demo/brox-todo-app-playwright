@@ -26,6 +26,7 @@ export default defineConfig({
   //workers: process.env.CI ? 1 : undefined,
   workers: process.env.CI ? 1 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  //https://github.com/microsoft/playwright/issues/21431
   //reporter: "html",
   reporter: [
     [
@@ -51,7 +52,7 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    /*{
+    {
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
@@ -72,7 +73,7 @@ export default defineConfig({
         baseURL: "https://demo.playwright.dev/todomvc/",
       },
     },
-    */
+
     //Svelte MVC
     {
       name: "Svelte_chromium",

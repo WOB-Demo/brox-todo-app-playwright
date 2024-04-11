@@ -1,0 +1,32 @@
+name: _PUSH_
+on: [push]
+
+jobs:
+  build_environment:
+    timeout-minutes: 60
+    name: ${{ matrix.os }} - Node.js ${{ matrix.node-version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: pwd
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pwReport_${{ matrix.os }}_node${{ matrix.node-version }}
+          path: playwright-report/
+          retention-days: 30
