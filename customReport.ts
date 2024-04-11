@@ -26,11 +26,15 @@ export class CustomReport {
         "<tr><td>${steppe.title}</td><td>${steppe.startTime}</td><td>${steppe.duration}</td></tr>\n";
     }
     html += "</table></body></html>";
-    writeFile("./myReports/${test.title}.html", html, (e) => {
-      if (e) {
-        console.log(e);
+    writeFile(
+      "./${process.env.PLAYWRIGHT_HTML_REPORT}/${test.title}.html",
+      html,
+      (e) => {
+        if (e) {
+          console.log(e);
+        }
       }
-    });
+    );
   }
 
   onEnd(result) {}

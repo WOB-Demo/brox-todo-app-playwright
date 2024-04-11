@@ -22,8 +22,16 @@ jobs:
         run: npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - run: export PLAYWRIGHT_HTML_REPORT=Chrome_report      
+      - name: Check Report folder
+        run: |
+        if [ -d {{PLAYWRIGHT_HTML_REPORT}}];then 
+          echo dir exists && echo ok
+        else 
+          md Chrome_report
+        fi
       - name: Run Playwright tests
-        run: PLAYWRIGHT_HTML_REPORT=Chrome_report npx playwright test -g "chromium"
+        run: npx playwright test -g "chromium"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
