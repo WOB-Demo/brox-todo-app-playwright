@@ -25,7 +25,7 @@ jobs:
       - run: export PLAYWRIGHT_HTML_REPORT=Chrome_report      
       - name: Check Report folder
         run: |
-        if [ -d {{PLAYWRIGHT_HTML_REPORT}}];then 
+        if [ -d ${{PLAYWRIGHT_HTML_REPORT}}];then 
           echo dir exists && echo ok
         else 
           md Chrome_report
