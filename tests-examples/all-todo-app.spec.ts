@@ -32,10 +32,8 @@ test.describe("New Todo", () => {
     await newTodo.press("Enter");
 
     // Make sure the list now has two todo items.
-    await expect(page.locator(".todo-list label")).toHaveText([
-      TODO_ITEMS[0],
-      TODO_ITEMS[1],
-    ]);
+    const tasks = page.locator(".todo-list label");
+    await expect(tasks).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]]);
   });
 
   test("should clear text input field when an item is added", async ({
@@ -90,7 +88,7 @@ test.describe("Mark all as completed", () => {
     await page.locator(testObj.todoMarkAll).check();
 
     // Ensure all todos have 'completed' class.
-    await expect(page.locator(".todo-list>li")).toHaveClass([
+    await expect(page.locator(".todo-list li")).toHaveClass([
       "completed",
       "completed",
       "completed",
@@ -107,7 +105,7 @@ test.describe("Mark all as completed", () => {
     await toggleAll.uncheck();
 
     // Should be no completed classes.
-    await expect(page.locator(".todo-list>li")).toHaveClass(["", "", ""]);
+    await expect(page.locator(".todo-list li")).toHaveClass(["", "", ""]);
   });
 
   test("complete all checkbox should update state when items are completed / cleared", async ({
@@ -119,7 +117,7 @@ test.describe("Mark all as completed", () => {
     //await checkNumberOfCompletedTodosInLocalStorage(page, 3);
 
     // Uncheck first todo.
-    const firstTodo = page.locator(".todo-list>li").nth(0);
+    const firstTodo = page.locator(".todo-list li").nth(0);
     await firstTodo.getByRole("checkbox").uncheck();
 
     // Reuse toggleAll locator and make sure its not checked.
@@ -145,12 +143,12 @@ test.describe("Item", () => {
     }
 
     // Check first item.
-    const firstTodo = page.locator(".todo-list>li").nth(0);
+    const firstTodo = page.locator(".todo-list li").nth(0);
     await firstTodo.getByRole("checkbox").check();
     await expect(firstTodo).toHaveClass("completed");
 
     // Check second item.
-    const secondTodo = page.locator(".todo-list>li").nth(1);
+    const secondTodo = page.locator(".todo-list li").nth(1);
     await expect(secondTodo).not.toHaveClass("completed");
     await secondTodo.getByRole("checkbox").check();
 
@@ -169,8 +167,8 @@ test.describe("Item", () => {
       await newTodo.press("Enter");
     }
 
-    const firstTodo = page.locator(".todo-list>li").nth(0);
-    const secondTodo = page.locator(".todo-list>li").nth(1);
+    const firstTodo = page.locator(".todo-list li").nth(0);
+    const secondTodo = page.locator(".todo-list li").nth(1);
     const firstTodoCheckbox = firstTodo.getByRole("checkbox");
 
     await firstTodoCheckbox.check();
@@ -187,7 +185,7 @@ test.describe("Item", () => {
   test("should allow me to edit an item", async ({ page }) => {
     await createDefaultTodos(page);
 
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     const secondTodo = todoItems.nth(1);
     await secondTodo.dblclick();
     await expect(secondTodo.locator("input.edit")).toHaveValue(TODO_ITEMS[1]);
@@ -211,7 +209,7 @@ test.describe("Editing", () => {
   });
 
   test("should hide other controls when editing", async ({ page }) => {
-    const todoItem = page.locator(".todo-list>li").nth(1);
+    const todoItem = page.locator(".todo-list li").nth(1);
     await todoItem.dblclick();
     await expect(todoItem.getByRole("checkbox")).not.toBeVisible();
     await expect(
@@ -223,7 +221,7 @@ test.describe("Editing", () => {
   });
 
   test("should save edits on blur", async ({ page }) => {
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     await todoItems.nth(1).dblclick();
     await todoItems
       .nth(1)
@@ -241,7 +239,7 @@ test.describe("Editing", () => {
   });
 
   test("should trim entered text", async ({ page }) => {
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     await todoItems.nth(1).dblclick();
     await todoItems
       .nth(1)
@@ -265,7 +263,7 @@ test.describe("Editing", () => {
   test("should remove the item if an empty text string was entered", async ({
     page,
   }) => {
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     await todoItems.nth(1).dblclick();
     await todoItems.nth(1).locator("input.edit").fill("");
     await todoItems
@@ -278,7 +276,7 @@ test.describe("Editing", () => {
   });
 
   test("should cancel edits on escape", async ({ page }) => {
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     await todoItems.nth(1).dblclick();
     await todoItems.nth(1).locator("input.edit").fill("buy some sausages");
     await todoItems.nth(1).locator("input.edit").press("Escape");
@@ -321,7 +319,7 @@ test.describe("Clear completed button", () => {
   });
 
   test("should remove completed items when clicked", async ({ page }) => {
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     await todoItems.nth(1).getByRole("checkbox").check();
     await page.getByText(testObj.todoClearCompleted).click();
     await expect(todoItems).toHaveCount(2);
@@ -347,7 +345,7 @@ test.describe("Persistence", () => {
       await newTodo.press("Enter");
     }
 
-    const todoItems = page.locator(".todo-list>li");
+    const todoItems = page.locator(".todo-list li");
     const firstTodoCheck = todoItems.nth(0).getByRole("checkbox");
     await firstTodoCheck.check();
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]]);
@@ -375,8 +373,8 @@ test.describe("Routing", () => {
   });
 
   test("should allow me to display active items", async ({ page }) => {
-    const todoItem = page.locator(".todo-list>li");
-    await page.locator(".todo-list>li").nth(1).getByRole("checkbox").check();
+    const todoItem = page.locator(".todo-list li");
+    await page.locator(".todo-list li").nth(1).getByRole("checkbox").check();
 
     //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
     await page.getByRole("link", { name: "Active" }).click();
@@ -385,8 +383,8 @@ test.describe("Routing", () => {
   });
 
   test("should respect the back button", async ({ page }) => {
-    const todoItem = page.locator(".todo-list>li");
-    await page.locator(".todo-list>li").nth(1).getByRole("checkbox").check();
+    const todoItem = page.locator(".todo-list li");
+    await page.locator(".todo-list li").nth(1).getByRole("checkbox").check();
 
     //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
 
@@ -411,19 +409,19 @@ test.describe("Routing", () => {
   });
 
   test("should allow me to display completed items", async ({ page }) => {
-    await page.locator(".todo-list>li").nth(1).getByRole("checkbox").check();
+    await page.locator(".todo-list li").nth(1).getByRole("checkbox").check();
     //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
     await page.getByRole("link", { name: "Completed" }).click();
-    await expect(page.locator(".todo-list>li")).toHaveCount(1);
+    await expect(page.locator(".todo-list li")).toHaveCount(1);
   });
 
   test("should allow me to display all items", async ({ page }) => {
-    await page.locator(".todo-list>li").nth(1).getByRole("checkbox").check();
+    await page.locator(".todo-list li").nth(1).getByRole("checkbox").check();
     //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
     await page.getByRole("link", { name: "Active" }).click();
     await page.getByRole("link", { name: "Completed" }).click();
     await page.getByRole("link", { name: "All" }).click();
-    await expect(page.locator(".todo-list>li")).toHaveCount(3);
+    await expect(page.locator(".todo-list li")).toHaveCount(3);
   });
 
   test("should highlight the currently applied filter", async ({ page }) => {
