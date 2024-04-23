@@ -1,0 +1,19 @@
+{
+  "todoNew": "What needs to be done?",
+  "todoMarkAll": "Mark all as complete",
+  "todoClearCompleted": "Clear completed",
+  "todoTaskNames": ".todo-list label",
+  "todoTasks": ".todo-list li",
+  "todoIncompletedTasks": "span.todo-count",
+  "todoDisplayAll":{
+    "role": "link",
+    "name": "All"
+  },
+  "todoDisplayActive":{
+    "role": "link",
+    "name": "Active"
+  },"todoDisplayCompleted":{
+    "role": "link",
+    "name": "Completed"
+  }
+}
