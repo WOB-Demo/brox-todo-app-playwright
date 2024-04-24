@@ -1,6 +1,11 @@
 {
   "todoNew": "What needs to be done?",
-  "todoMarkAll": "Mark all as complete",
+  "todoMarkAll": {
+    "role": "checkbox",
+    "filter": {
+      "hasText": "all"
+    }
+  },
   "todoClearCompleted": "Clear completed",
   "todoTaskNames": ".todo-list label",
   "todoTasks": ".todo-list li",

@@ -58,7 +58,7 @@ test.describe("New Todo", () => {
     
     // Create 3 items.
     
-    await tdPage.createDefaultTodos(page,TODO_ITEMS);
+    await tdPage.createDefaultTodos(TODO_ITEMS);
 
     // Check test using different methods.
     // await expect(page.getByText("3 items left")).toBeVisible();
@@ -77,7 +77,7 @@ test.describe("Mark all as completed", () => {
   test.beforeEach(async ({ page }) => {
     const tdPage = new todoPage(page);
      // Create 3 items.    
-    await tdPage.createDefaultTodos(page,TODO_ITEMS);
+    await tdPage.createDefaultTodos(TODO_ITEMS);
     //await checkNumberOfTodosInLocalStorage(page, 3);
   });
 
@@ -167,7 +167,7 @@ test.describe("Item", () => {
     const tdPage = new todoPage(page);
     // const newTodo = page.getByPlaceholder(testObj.todoNew);
 
-    tdPage.createDefaultTodos(page,TODO_ITEMS.slice(0, 2));
+    tdPage.createDefaultTodos([TODO_ITEMS[0], TODO_ITEMS[1] ]);
     // Create two items.
     // for (const item of TODO_ITEMS.slice(0, 2)) {
     //   await newTodo.fill(item);
@@ -176,6 +176,7 @@ test.describe("Item", () => {
 
     const firstTodo = tdPage.todoTasks.nth(0);
     const secondTodo = tdPage.todoTasks.nth(1);
+    // console.log(secondTodo.textContent());
     const firstTodoCheckbox = firstTodo.getByRole("checkbox");
 
     await firstTodoCheckbox.check();
@@ -191,7 +192,7 @@ test.describe("Item", () => {
 
   test("should allow me to edit an item", async ({ page }) => {
     const tdPage = new todoPage(page);
-    await tdPage.createDefaultTodos(page,TODO_ITEMS);
+    await tdPage.createDefaultTodos(TODO_ITEMS);
 
     const todoItems = tdPage.todoTasks;
     const secondTodo = todoItems.nth(1);
@@ -213,7 +214,7 @@ test.describe("Item", () => {
 test.describe("Editing", () => {
   test.beforeEach(async ({ page }) => {
     const tdPage = new todoPage(page);
-    await tdPage.createDefaultTodos(page,TODO_ITEMS);
+    await tdPage.createDefaultTodos(TODO_ITEMS);
     //await checkNumberOfTodosInLocalStorage(page, 3);
   });
 
@@ -323,7 +324,7 @@ test.describe("Counter", () => {
 test.describe("Clear completed button", () => {
   test.beforeEach(async ({ page }) => {
     const tdPage = new todoPage(page);
-    await tdPage.createDefaultTodos(page,TODO_ITEMS);
+    await tdPage.createDefaultTodos(TODO_ITEMS);
   });
 
   test("should display the correct text", async ({ page }) => {
@@ -357,7 +358,7 @@ test.describe("Persistence", () => {
     const tdPage = new todoPage(page);
     // const newTodo = page.getByPlaceholder(testObj.todoNew);
 
-    for (const item of TODO_ITEMS.slice(0, 2)) {
+    for (const item of TODO_ITEMS) {
       await tdPage.newInput.fill(item);
       await tdPage.newInput.press("Enter");
     }
@@ -383,7 +384,7 @@ test.describe("Persistence", () => {
 test.describe("Routing", () => {
   test.beforeEach(async ({ page }) => {
     const tdPage = new todoPage(page);
-    await tdPage.createDefaultTodos(page,TODO_ITEMS);
+    await tdPage.createDefaultTodos(TODO_ITEMS);
     // make sure the app had a chance to save updated todos in storage
     // before navigating to a new view, otherwise the items can get lost :(
     // in some frameworks like Durandal

@@ -43,7 +43,8 @@ export class todoPage {
     this.todoTasks = this.page.locator(jobj.todoTasks);
    
     //Button
-    this.markAll = this.page.getByText(jobj.todoMarkAll);
+    // this.markAll = this.page.getByText(jobj.todoMarkAll);
+    this.markAll = this.page.getByRole(jobj.todoMarkAll.role).filter({hasText: jobj.todoMarkAll.hasText});
     this.clearCompleted = this.page.getByText(jobj.todoClearCompleted); 
     this.displayAll = this.page.getByRole(jobj.todoDisplayAll.role, { name: jobj.todoDisplayAll.name });   
     this.displayActive = this.page.getByRole(jobj.todoDisplayActive.role, { name: jobj.todoDisplayActive.name  });
@@ -51,7 +52,8 @@ export class todoPage {
 
   }
 
-  async createDefaultTodos(page: Page, todoItems: string[]) {
+  // async createDefaultTodos(page: Page, todoItems: string[]) {
+  async createDefaultTodos(todoItems: string[]) {
     // create a new todo locator
     //const newTodo = this.newInput;
     for (const item of todoItems) {
