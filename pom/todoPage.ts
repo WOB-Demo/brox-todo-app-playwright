@@ -43,8 +43,10 @@ export class todoPage {
     this.todoTasks = this.page.locator(jobj.todoTasks);
    
     //Button
-    // this.markAll = this.page.getByText(jobj.todoMarkAll);
-    this.markAll = this.page.getByRole(jobj.todoMarkAll.role).filter({hasText: jobj.todoMarkAll.hasText});
+    // this.markAll = this.page.locator("input").and(this.page.getByLabel(/ *all* /i));
+    this.markAll = this.page.locator(jobj.todoMarkAll);    
+    // this.markAll = this.page.getByRole(jobj.todoMarkAll.role).filter({ has: this.page.getByLabel( /Mark all/) });
+  
     this.clearCompleted = this.page.getByText(jobj.todoClearCompleted); 
     this.displayAll = this.page.getByRole(jobj.todoDisplayAll.role, { name: jobj.todoDisplayAll.name });   
     this.displayActive = this.page.getByRole(jobj.todoDisplayActive.role, { name: jobj.todoDisplayActive.name  });

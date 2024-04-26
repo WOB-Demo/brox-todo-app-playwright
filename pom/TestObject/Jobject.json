@@ -1,14 +1,9 @@
 {
   "todoNew": "What needs to be done?",
-  "todoMarkAll": {
-    "role": "checkbox",
-    "filter": {
-      "hasText": "all"
-    }
-  },
+  "todoMarkAll": "//label[contains(@for,'toggle-all')]/preceding-sibling::input",
   "todoClearCompleted": "Clear completed",
-  "todoTaskNames": ".todo-list label",
-  "todoTasks": ".todo-list li",
+  "todoTaskNames": "ul.todo-list label",
+  "todoTasks": "ul.todo-list li",
   "todoIncompletedTasks": "span.todo-count",
   "todoDisplayAll":{
     "role": "link",
