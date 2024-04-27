@@ -5,17 +5,45 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
 
+export const playwright_URL = "https://demo.playwright.dev/todomvc/";
+export const svelte_URL     = "https://todomvc.com/examples/svelte/dist/";
+export const react_URL      = "https://todomvc.com/examples/react/dist/";
+export const vue_URL        = "https://todomvc.com/examples/vue/dist/#/";
+export const backbone_URL   = "https://todomvc.com/examples/backbone/dist/";
+export const preact_URL     = "https://todomvc.com/examples/preact/dist/";
+export const angular_URL    = "https://todomvc.com/examples/angular/dist/browser/#/all";
+export const webc_URL       = "https://todomvc.com/examples/web-components/dist/";
+export const js6_URL        = "https://todomvc.com/examples/javascript-es6/dist/";
+export const jquery_URL     = "https://todomvc.com/examples/jquery/dist/#/all";
+
+/*
+export const base_URL = [
+  {name: "playwright_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "svelte_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "react_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "vue_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "backbone_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "preact_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "angular_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "webc_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "js6_URL", url: "https://demo.playwright.dev/todomvc/" },
+  {name: "jquery_URL", url: "https://demo.playwright.dev/todomvc/" }
+];
+base_URL.find(x => x.name =="playwright_URL").map(x => x.url)
+*/
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
 
+
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./tests-examples",
+  testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -60,21 +88,21 @@ export default defineConfig({
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://demo.playwright.dev/todomvc/",
+        baseURL: playwright_URL,
       },
     },
     {
       name: "Playwright_todo_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://demo.playwright.dev/todomvc/",
+        baseURL: playwright_URL,
       },
     },
     {
       name: "Playwright_todo_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://demo.playwright.dev/todomvc/",
+        baseURL: playwright_URL,
       },
     },
 
@@ -83,21 +111,21 @@ export default defineConfig({
       name: "Svelte_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/svelte/dist/",
+        baseURL: svelte_URL,
       },
     },
     {
       name: "Svelte_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/svelte/dist/",
+        baseURL: svelte_URL,
       },
     },
     {
       name: "Svelte_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/svelte/dist/",
+        baseURL: svelte_URL,
       },
     },
 
@@ -106,7 +134,7 @@ export default defineConfig({
       name: "React_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/react/dist/",
+        baseURL: react_URL,
       },
     },
 
@@ -114,7 +142,7 @@ export default defineConfig({
       name: "React_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/react/dist/",
+        baseURL: react_URL,
       },
     },
 
@@ -122,7 +150,7 @@ export default defineConfig({
       name: "React_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/react/dist/",
+        baseURL: react_URL,
       },
     },
 
@@ -131,7 +159,7 @@ export default defineConfig({
       name: "Vue_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/vue/dist/#/",
+        baseURL: vue_URL,
       },
     },
 
@@ -139,14 +167,14 @@ export default defineConfig({
       name: "Vue_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/vue/dist/#/",
+        baseURL: vue_URL,
       },
     },
     {
       name: "Vue_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/vue/dist/#/",
+        baseURL: vue_URL,
       },
     },
 
@@ -155,21 +183,21 @@ export default defineConfig({
       name: "Backbone_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/backbone/dist/",
+        baseURL: backbone_URL,
       },
     },
     {
       name: "Backbone_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/backbone/dist/",
+        baseURL: backbone_URL,
       },
     },
     {
       name: "Backbone_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/backbone/dist/",
+        baseURL: backbone_URL,
       },
     },
     //Preact MVC
@@ -177,7 +205,7 @@ export default defineConfig({
       name: "Preact_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/preact/dist/",
+        baseURL: preact_URL,
       },
     },
 
@@ -185,14 +213,14 @@ export default defineConfig({
       name: "Preact_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/preact/dist/",
+        baseURL: preact_URL,
       },
     },
     {
       name: "Preact_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/preact/dist/",
+        baseURL: preact_URL,
       },
     },
 
@@ -201,21 +229,21 @@ export default defineConfig({
       name: "Angular_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/angular/dist/browser/#/all",
+        baseURL: angular_URL,
       },
     },
     {
       name: "Angular_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/angular/dist/browser/#/all",
+        baseURL: angular_URL,
       },
     },
     {
       name: "Angular_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/angular/dist/browser/#/all",
+        baseURL: angular_URL,
       },
     },
 
@@ -224,7 +252,7 @@ export default defineConfig({
       name: "WebC_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/web-components/dist/",
+        baseURL: webc_URL,
       },
     },
 
@@ -232,14 +260,14 @@ export default defineConfig({
       name: "WebC_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/web-components/dist/",
+        baseURL: webc_URL,
       },
     },
     {
       name: "WebC_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/web-components/dist/",
+        baseURL: webc_URL,
       },
     },
 
@@ -248,7 +276,7 @@ export default defineConfig({
       name: "JS-ES6_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/javascript-es6/dist/",
+        baseURL: js6_URL,
       },
     },
 
@@ -256,14 +284,14 @@ export default defineConfig({
       name: "JS-ES6_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/javascript-es6/dist/",
+        baseURL: js6_URL,
       },
     },
     {
       name: "JS-ES6_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/javascript-es6/dist/",
+        baseURL: js6_URL,
       },
     },
 
@@ -272,21 +300,21 @@ export default defineConfig({
       name: "jquery_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: "https://todomvc.com/examples/jquery/dist/#/all",
+        baseURL: jquery_URL,
       },
     },
     {
       name: "jquery_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: "https://todomvc.com/examples/jquery/dist/#/all",
+        baseURL: jquery_URL,
       },
     },
     {
       name: "jquery_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: "https://todomvc.com/examples/jquery/dist/#/all",
+        baseURL: jquery_URL,
       },
     },
 
