@@ -20,9 +20,11 @@ export class todoPage {
   readonly taskNames: Locator;
   readonly incompletedTasks: Locator;
   readonly todoTasks: Locator;
+  readonly todoActiveTasks: Locator;
+  readonly todoCompletedTasks: Locator;
 
   //Button
-  readonly markAll: Locator;
+  readonly markAll: Locator; //"todoMarkAll": "//label[contains(@for,`toggle-all`)]/preceding-sibling::input",
   readonly clearCompleted:Locator;
   readonly displayAll: Locator;
   readonly displayActive: Locator;
@@ -41,6 +43,8 @@ export class todoPage {
     this.taskNames = this.page.locator(jobj.todoTaskNames);
     this.incompletedTasks = this.page.locator(jobj.todoIncompletedTasks);
     this.todoTasks = this.page.locator(jobj.todoTasks);
+    this.todoActiveTasks = this.page.locator(jobj.todoActiveTasks);
+    this.todoCompletedTasks = this.page.locator(jobj.todoCompletedTasks);
    
     //Button
     // this.markAll = this.page.locator("input").and(this.page.getByLabel(/ *all* /i));

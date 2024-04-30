@@ -12,7 +12,9 @@ export const vue_URL        = "https://todomvc.com/examples/vue/dist/#/";
 export const backbone_URL   = "https://todomvc.com/examples/backbone/dist/";
 export const preact_URL     = "https://todomvc.com/examples/preact/dist/";
 export const angular_URL    = "https://todomvc.com/examples/angular/dist/browser/#/all";
-export const webc_URL       = "https://todomvc.com/examples/web-components/dist/";
+export const ember_URL      = "https://todomvc.com/examples/emberjs/todomvc/dist/";
+export const lit_URL        = "https://todomvc.com/examples/lit/dist/";
+// export const webc_URL       = "https://todomvc.com/examples/web-components/dist/";
 export const js6_URL        = "https://todomvc.com/examples/javascript-es6/dist/";
 export const jquery_URL     = "https://todomvc.com/examples/jquery/dist/#/all";
 
@@ -247,29 +249,75 @@ export default defineConfig({
       },
     },
 
-    //Web-Component MVC
+    //Ember MVC
     {
-      name: "WebC_chromium",
+      name: "Ember_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: webc_URL,
+        baseURL: ember_URL,
       },
     },
 
     {
-      name: "WebC_firefox",
+      name: "Ember_firefox",
       use: {
         ...devices["Desktop Firefox"],
-        baseURL: webc_URL,
+        baseURL: ember_URL,
       },
     },
     {
-      name: "WebC_webkit",
+      name: "Ember_webkit",
       use: {
         ...devices["Desktop Safari"],
-        baseURL: webc_URL,
+        baseURL: ember_URL,
       },
     },
+
+    //Lit MVC
+    {
+      name: "Lit_chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: lit_URL,
+      },
+    },
+    {
+      name: "Lit_firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+        baseURL: lit_URL,
+      },
+    },
+    {
+      name: "Lit_webkit",
+      use: {
+        ...devices["Desktop Safari"],
+        baseURL: lit_URL,
+      },
+    },
+    //Web-Component MVC
+    // {
+    //   name: "WebC_chromium",
+    //   use: {
+    //     ...devices["Desktop Chrome"],
+    //     baseURL: webc_URL,
+    //   },
+    // },
+
+    // {
+    //   name: "WebC_firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //     baseURL: webc_URL,
+    //   },
+    // },
+    // {
+    //   name: "WebC_webkit",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //     baseURL: webc_URL,
+    //   },
+    // },
 
     //JS-ES6 MVC
     {

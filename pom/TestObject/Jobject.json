@@ -1,9 +1,11 @@
 {
   "todoNew": "What needs to be done?",
-  "todoMarkAll": "//label[contains(@for,'toggle-all')]/preceding-sibling::input",
+  "todoMarkAll": ".main input[class*='toggle-all']",
   "todoClearCompleted": "Clear completed",
   "todoTaskNames": "ul.todo-list label",
   "todoTasks": "ul.todo-list li",
+  "todoActiveTasks": "ul.todo-list li:not(.completed)",
+  "todoCompletedTasks": "ul.todo-list li.completed)",
   "todoIncompletedTasks": "span.todo-count",
   "todoDisplayAll":{
     "role": "link",

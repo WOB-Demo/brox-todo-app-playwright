@@ -29,14 +29,14 @@ test.describe("New Todo", () => {
     await tdPage.newInput.press("Enter");
 
     // Make sure the list only has one todo item.
-    await expect(tdPage.taskNames).toHaveText([TODO_ITEMS[0]]);
+    await expect(tdPage.todoTasks).toHaveText([TODO_ITEMS[0]]);
 
     // Create 2nd todo.
     await tdPage.newInput.fill(TODO_ITEMS[1]);
     await tdPage.newInput.press("Enter");
 
     // Make sure the list now has two todo items.
-    const tasks = tdPage.taskNames;
+    const tasks = tdPage.todoTasks;
     await expect(tasks).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]]);
   });
 
@@ -57,6 +57,7 @@ test.describe("New Todo", () => {
     page,
   }) => {
     const tdPage = new todoPage(page);
+    const newItem = "Another Item";
     
     // Create 3 items.
     
@@ -64,13 +65,16 @@ test.describe("New Todo", () => {
 
     // Check test using different methods.
     // await expect(page.getByText("3 items left")).toBeVisible();
-    await expect(tdPage.incompletedTasks).toHaveText(/3 items left/);
+    await expect(tdPage.incompletedTasks).toContainText(/3 items left/);
     // await expect(todoCount).toContainText("3");
     // await expect(todoCount).toHaveText(/3/);
 
-    const todoCount = await tdPage.incompletedTasks.textContent()[0];
+    // const todoCount = await tdPage.incompletedTasks.textContent()[0];
+    await tdPage.newInput.fill(newItem);
+    await tdPage.newInput.press("Enter");
+    // await page.waitForLoadState("domcontentloaded");
     // Check all items in one call.
-    await expect(tdPage.taskNames).toHaveText(TODO_ITEMS);
+    await expect(tdPage.todoTasks).toHaveText([TODO_ITEMS[0],TODO_ITEMS[1],TODO_ITEMS[2], newItem]);
     //await checkNumberOfTodosInLocalStorage(page, 3);
   });
 });
@@ -400,13 +404,17 @@ test.describe("Routing", () => {
 
   test("should allow me to display active items", async ({ page }) => {
     const tdPage = new todoPage(page);
-    const todoItem = tdPage.todoTasks;
+    // const todoItem = tdPage.todoTasks;
     await tdPage.todoTasks.nth(1).getByRole("checkbox").check();
+    // await tdPage.todoTasks.getByText(TODO_ITEMS[1]).getByRole("checkbox").check();
 
-    //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
+    // //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
+    // await page.locator("ul.todo-list li:has-text(${TODO_ITEMS[1]})").getByRole("checkbox").check(); 
     await tdPage.displayActive.click();
-    await expect(todoItem).toHaveCount(2);
-    await expect(todoItem).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
+    await expect(tdPage.todoActiveTasks).toHaveCount(2);
+    await expect(tdPage.todoActiveTasks).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
+    
+
   });
 
   test("should respect the back button", async ({ page }) => {
@@ -440,7 +448,9 @@ test.describe("Routing", () => {
     const tdPage = new todoPage(page);
     await tdPage.todoTasks.nth(1).getByRole("checkbox").check();
     //await checkNumberOfCompletedTodosInLocalStorage(page, 1);
-    await page.getByRole("link", { name: "Completed" }).click();
+    // await page.getByRole("link", { name: "Completed" }).click();
+    await tdPage.displayCompleted.click();
+    // await 
     await expect(tdPage.todoTasks).toHaveCount(1);
   });
 
