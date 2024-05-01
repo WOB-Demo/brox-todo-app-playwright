@@ -85,6 +85,7 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
+  // https://stackoverflow.com/questions/68103235/how-do-i-access-playwright-test-runner-project-info-in-a-test
   projects: [
     {
       name: "Playwright_todo_chromium",
