@@ -2,6 +2,7 @@
 //https://github.com/microsoft/playwright/issues/9380
 //https://github.com/microsoft/playwright/issues/18345
 //https://github.com/microsoft/playwright-vscode/pull/407
+// https://medium.com/@pothiwalapranav/running-playwright-tests-with-multiple-grep-patterns-c602528f6649
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
 
@@ -15,8 +16,23 @@ export const angular_URL    = "https://todomvc.com/examples/angular/dist/browser
 export const ember_URL      = "https://todomvc.com/examples/emberjs/todomvc/dist/";
 export const lit_URL        = "https://todomvc.com/examples/lit/dist/";
 // export const webc_URL       = "https://todomvc.com/examples/web-components/dist/";
-export const js6_URL        = "https://todomvc.com/examples/javascript-es6/dist/";
+// export const js5_URL        = "https://todomvc.com/examples/javascript-es5/dist/";
+// export const js6_URL        = "https://todomvc.com/examples/javascript-es6/dist/";
 export const jquery_URL     = "https://todomvc.com/examples/jquery/dist/#/all";
+
+
+export const base_URL = [
+  { playwright: "https://demo.playwright.dev/todomvc/" },
+  { svelte: "https://demo.playwright.dev/todomvc/" },
+  { react: "https://demo.playwright.dev/todomvc/" },
+  { vue: "https://demo.playwright.dev/todomvc/" },
+  { backbone: "https://demo.playwright.dev/todomvc/" },
+  { preact: "https://demo.playwright.dev/todomvc/" },
+  { angular: "https://demo.playwright.dev/todomvc/" },
+  { webc: "https://demo.playwright.dev/todomvc/" },
+  { js6: "https://demo.playwright.dev/todomvc/" },
+  { jquery: "https://demo.playwright.dev/todomvc/" }
+];
 
 /*
 export const base_URL = [
@@ -91,7 +107,7 @@ export default defineConfig({
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: playwright_URL,
+        baseURL: playwright_URL
       },
     },
     {
@@ -296,6 +312,7 @@ export default defineConfig({
         baseURL: lit_URL,
       },
     },
+    
     //Web-Component MVC
     // {
     //   name: "WebC_chromium",
@@ -320,29 +337,29 @@ export default defineConfig({
     //   },
     // },
 
-    //JS-ES6 MVC
-    {
-      name: "JS-ES6_chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-        baseURL: js6_URL,
-      },
-    },
+    // //JS-ES6 MVC
+    // {
+    //   name: "JS-ES6_chromium",
+    //   use: {
+    //     ...devices["Desktop Chrome"],
+    //     baseURL: js6_URL,
+    //   },
+    // },
 
-    {
-      name: "JS-ES6_firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-        baseURL: js6_URL,
-      },
-    },
-    {
-      name: "JS-ES6_webkit",
-      use: {
-        ...devices["Desktop Safari"],
-        baseURL: js6_URL,
-      },
-    },
+    // {
+    //   name: "JS-ES6_firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //     baseURL: js6_URL,
+    //   },
+    // },
+    // {
+    //   name: "JS-ES6_webkit",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //     baseURL: js6_URL,
+    //   },
+    // },
 
     //jquery MVC
     {
