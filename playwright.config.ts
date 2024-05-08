@@ -3,8 +3,9 @@
 //https://github.com/microsoft/playwright/issues/18345
 //https://github.com/microsoft/playwright-vscode/pull/407
 // https://medium.com/@pothiwalapranav/running-playwright-tests-with-multiple-grep-patterns-c602528f6649
-import { defineConfig, devices } from "playwright-test-coverage-native";
-// import { defineConfig, devices } from "@playwright/test";
+// import { defineConfig, devices } from "playwright-test-coverage-native";
+import { defineConfig, devices } from "@playwright/test";
+
 import path from "path";
 
 export const playwright_URL = "https://demo.playwright.dev/todomvc/";
@@ -56,8 +57,6 @@ base_URL.find(x => x.name =="playwright_URL").map(x => x.url)
  */
 // require('dotenv').config();
 
-
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -66,7 +65,8 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  // forbidOnly: !!process.env.CI,
+  forbidOnly: Boolean(process.env.CI),
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 0,
   expect: {
@@ -77,17 +77,20 @@ export default defineConfig({
   //workers: process.env.CI ? 1 : undefined,
   workers: process.env.CI ? 2 : 4,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  //reporter: "html",
-  reporter: [
-    [
-      "html",
-      {
-        outputFolder: process.env.REPNAME
-          ? process.env.REPNAME + "myReports"
-          : "myReports",
-      },
-    ],
-  ],
+  reporter: "html",
+  // reporter: [
+  //   [
+  //     "html",
+  //     {
+  //       outputFolder: process.env.REPNAME
+  //         ? process.env.REPNAME + "myReports"
+  //         : "myReports",
+  //     },
+  //   ],
+  // ],
+
+  globalSetup: 'global.setup.ts',
+  globalTeardown: 'global-teardown.ts',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     //https://playwright.dev/docs/api/class-testoptions#test-options-base-url
@@ -108,11 +111,7 @@ export default defineConfig({
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: playwright_URL,
-        coverageDir: './coverage/tmp',  // output location for coverage data
-        coverageSrc: './e2e',           // filter coverage data for only files in ./src (optional)
-        // one of: '@fs', 'localhosturl'. Sadly you'll just have to play around to see which one works
-        coverageSourceMapHandler: '@fs'
+        baseURL: playwright_URL,        
       },
     },
     {
