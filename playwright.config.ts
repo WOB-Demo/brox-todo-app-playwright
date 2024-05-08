@@ -109,8 +109,8 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         baseURL: playwright_URL,
-        coverageDir: './coverage/tmp',  // output location for coverage data
-        coverageSrc: './e2e',           // filter coverage data for only files in ./src (optional)
+        coverageDir: './coverage',  // output location for coverage data
+        coverageSrc: './src',           // filter coverage data for only files in ./src (Where the software apps locates)
         // one of: '@fs', 'localhosturl'. Sadly you'll just have to play around to see which one works
         coverageSourceMapHandler: '@fs'
       },
