@@ -9,7 +9,8 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.43.1",
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.11.30",
+    "playwright-test-coverage-native": "^0.2.0"
   },
   "dependencies": {
     "fs": "^0.0.1-security"

@@ -1,4 +1,6 @@
-import { test, expect, type Page } from "@playwright/test";
+// import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "playwright-test-coverage-native";
+import { type Page } from "@playwright/test";
 import { todoPage } from "../pom/todoPage";
 // import { defineConfig } from "@playwright/test";
 

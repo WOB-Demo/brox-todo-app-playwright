@@ -3,7 +3,8 @@
 //https://github.com/microsoft/playwright/issues/18345
 //https://github.com/microsoft/playwright-vscode/pull/407
 // https://medium.com/@pothiwalapranav/running-playwright-tests-with-multiple-grep-patterns-c602528f6649
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "playwright-test-coverage-native";
+// import { defineConfig, devices } from "@playwright/test";
 import path from "path";
 
 export const playwright_URL = "https://demo.playwright.dev/todomvc/";
@@ -107,7 +108,11 @@ export default defineConfig({
       name: "Playwright_todo_chromium",
       use: {
         ...devices["Desktop Chrome"],
-        baseURL: playwright_URL
+        baseURL: playwright_URL,
+        coverageDir: './coverage/tmp',  // output location for coverage data
+        coverageSrc: './e2e',           // filter coverage data for only files in ./src (optional)
+        // one of: '@fs', 'localhosturl'. Sadly you'll just have to play around to see which one works
+        coverageSourceMapHandler: '@fs'
       },
     },
     {
