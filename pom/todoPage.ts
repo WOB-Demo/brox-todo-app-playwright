@@ -16,7 +16,7 @@ export class todoPage {
   
 
   //Tasks 
-  readonly newInput:Locator;
+  readonly newInput: Locator;
   readonly taskNames: Locator;
   readonly incompletedTasks: Locator;
   readonly todoTasks: Locator;
@@ -24,8 +24,8 @@ export class todoPage {
   readonly todoCompletedTasks: Locator;
 
   //Button
-  readonly markAll: Locator; //"todoMarkAll": "//label[contains(@for,`toggle-all`)]/preceding-sibling::input",
-  readonly clearCompleted:Locator;
+  readonly markAll: Locator;
+  readonly clearCompleted: Locator;
   readonly displayAll: Locator;
   readonly displayActive: Locator;
   readonly displayCompleted: Locator;
@@ -47,10 +47,8 @@ export class todoPage {
     this.todoCompletedTasks = this.page.locator(jobj.todoCompletedTasks);
    
     //Button
-    // this.markAll = this.page.locator("input").and(this.page.getByLabel(/ *all* /i));
     this.markAll = this.page.locator(jobj.todoMarkAll);    
-    // this.markAll = this.page.getByRole(jobj.todoMarkAll.role).filter({ has: this.page.getByLabel( /Mark all/) });
-  
+    
     this.clearCompleted = this.page.getByText(jobj.todoClearCompleted); 
     this.displayAll = this.page.getByRole(jobj.todoDisplayAll.role, { name: jobj.todoDisplayAll.name });   
     this.displayActive = this.page.getByRole(jobj.todoDisplayActive.role, { name: jobj.todoDisplayActive.name  });
@@ -58,10 +56,7 @@ export class todoPage {
 
   }
 
-  // async createDefaultTodos(page: Page, todoItems: string[]) {
   async createDefaultTodos(todoItems: string[]) {
-    // create a new todo locator
-    //const newTodo = this.newInput;
     for (const item of todoItems) {
       await this.newInput.fill(item);
       await this.newInput.press("Enter");
